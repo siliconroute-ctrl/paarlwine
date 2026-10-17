@@ -1,47 +1,56 @@
 import * as React from 'react'
 import { render } from '@react-email/render'
-import { EmailAPIError, sendLovableEmail } from '@lovable.dev/email-js'
+import nodemailer, { type Transporter } from 'nodemailer'
 import { TEMPLATES } from './registry'
 
-// Server-only: reads LOVABLE_API_KEY. Never import from client components.
+// Server-only: reads SMTP_* environment variables. Never import from client components.
+//
+// Required environment variables:
+//   SMTP_HOST   e.g. the mail server of the hosting provider that runs hello@paarlwine.com
+//   SMTP_PORT   465 (SSL) or 587 (STARTTLS); defaults to 465
+//   SMTP_USER   full mailbox name, e.g. hello@paarlwine.com
+//   SMTP_PASS   mailbox password
+// Optional:
+//   SMTP_FROM   display name and address; defaults to "Paarl Wine <hello@paarlwine.com>"
 
-// Configuration baked in at scaffold time
-const SITE_NAME = "Paarl Wine"
-// SENDER_DOMAIN is the verified sender subdomain FQDN (e.g., "notify.example.com").
-// It MUST match the subdomain delegated to Lovable's nameservers. NEVER use the root domain.
-const SENDER_DOMAIN = "notify.paarlwine.com"
-// FROM_DOMAIN is the domain shown in the From: header (e.g., "example.com").
-// Can be the root domain when display_from_root is enabled — this is cosmetic only.
-const FROM_DOMAIN = "paarlwine.com"
+const DEFAULT_FROM = 'Paarl Wine <hello@paarlwine.com>'
 
-export type SendTemplateEmailResult =
-  | { sent: true }
-  | { sent: false; reason: 'recipient_suppressed' }
+export type SendTemplateEmailResult = { sent: true }
 
 export interface SendTemplateEmailOptions {
   templateData?: Record<string, any>
-  /** Dedupes retries of the same logical send; defaults to a random UUID (no dedupe). */
-  idempotencyKey?: string
   replyTo?: string
 }
 
+let transporter: Transporter | undefined
+
+function getTransporter(): Transporter {
+  if (transporter) return transporter
+  const host = process.env.SMTP_HOST
+  const user = process.env.SMTP_USER
+  const pass = process.env.SMTP_PASS
+  if (!host || !user || !pass) {
+    throw new Error('Email is not configured: set SMTP_HOST, SMTP_USER and SMTP_PASS')
+  }
+  const port = Number(process.env.SMTP_PORT || 465)
+  transporter = nodemailer.createTransport({
+    host,
+    port,
+    secure: port === 465,
+    auth: { user, pass },
+  })
+  return transporter
+}
+
 /**
- * Renders a registered template and sends it through Lovable's managed email
- * API. Suppression, retries, and rate limits are enforced by Lovable
- * server-side. A suppressed recipient is an expected outcome
- * ({ sent: false }); any other failure throws — EmailAPIError exposes
- * .code and .status for branching.
+ * Renders a registered React Email template and sends it over SMTP.
+ * Throws on failure; callers decide whether a failed email is fatal.
  */
 export async function sendTemplateEmail(
   templateName: string,
   to: string,
   options: SendTemplateEmailOptions = {}
 ): Promise<SendTemplateEmailResult> {
-  const apiKey = process.env.LOVABLE_API_KEY
-  if (!apiKey) {
-    throw new Error('LOVABLE_API_KEY is not configured')
-  }
-
   const template = TEMPLATES[templateName]
   if (!template) {
     throw new Error(
@@ -65,28 +74,14 @@ export async function sendTemplateEmail(
       ? template.subject(templateData)
       : template.subject
 
-  try {
-    await sendLovableEmail(
-      {
-        to: recipient,
-        from: `${SITE_NAME} <hello@${FROM_DOMAIN}>`,
-        sender_domain: SENDER_DOMAIN,
-        subject,
-        html,
-        text,
-        purpose: 'transactional',
-        label: templateName,
-        idempotency_key: options.idempotencyKey || crypto.randomUUID(),
-        reply_to: options.replyTo,
-      },
-      { apiKey, sendUrl: process.env.LOVABLE_SEND_URL }
-    )
-  } catch (error) {
-    if (error instanceof EmailAPIError && error.code === 'recipient_suppressed') {
-      return { sent: false, reason: 'recipient_suppressed' }
-    }
-    throw error
-  }
+  await getTransporter().sendMail({
+    from: process.env.SMTP_FROM || DEFAULT_FROM,
+    to: recipient,
+    replyTo: options.replyTo,
+    subject,
+    html,
+    text,
+  })
 
   return { sent: true }
 }

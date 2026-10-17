@@ -45,7 +45,6 @@ export const submitContactMessage = createServerFn({ method: "POST" })
             timeZone: "Africa/Johannesburg",
           }),
         },
-        idempotencyKey: `contact-notification-${row.id}`,
         replyTo: data.email,
       });
     } catch (err) {
