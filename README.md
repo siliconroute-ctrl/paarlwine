@@ -1,29 +1,44 @@
-# Welcome to your Lovable project
+# Terroir — the Paarl Wine app
 
-This project was built with [Lovable](https://lovable.dev).
+**app.paarlwine.com** — the wine label translator from Paarl, South Africa. Photograph a foreign wine
+label and Terroir names the grape, the style and the closest bottles back home, plus a Paarl estate
+that drinks the same way. Part of the **paarlwine.com** brand (the WordPress site holds the articles).
 
-## Build with Lovable
+## What is in it
 
-Open your project in the [Lovable editor](https://lovable.dev) and keep building.
+| Area | What it does |
+|------|--------------|
+| `/guide` | Searchable guide of classic wines (France, Italy, Spain, South Africa and more) with "similar bottles elsewhere" |
+| `/scan` | Label scanner. Needs sign-in. Uses Claude to read the label; limited per user per day |
+| `/cellar` | Each user's saved scans and label photos |
+| `/estates` | Directory of Paarl estates (edit `src/lib/estates.ts`) |
+| `/sponsors`, `/contact` | Advertiser pitch and a contact form that saves to the database and emails `hello@paarlwine.com` |
+| `/auth` | Email and password sign-in, Google sign-in, password reset |
 
-- **Ship faster**: describe what you want to build and Lovable handles the code.
-- **Stay in sync**: connect the project to GitHub and every change made in Lovable is committed straight to your repository.
-- **Full ownership**: this code is yours. Push to your repository and your changes sync back into Lovable, ready for your next prompt.
+## Tech
 
-## Development
+TanStack Start (React 19, TypeScript, Tailwind), Supabase (Postgres, auth, storage), Claude API for
+the scanner, SMTP for email, deployed to Vercel.
 
-Prefer working locally? You need Node.js and npm — [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating).
+## Run it locally
 
 ```sh
-git clone <this-repository-url>
-cd <repository-name>
-npm i
+cp .env.example .env     # then fill in the values
+npm install
 npm run dev
 ```
 
-## Built with
+## Deploy
 
-- TanStack Start
-- TypeScript
-- React
-- Tailwind CSS
+See [`docs/DEPLOY.md`](docs/DEPLOY.md) for the step-by-step: Supabase, Vercel, DNS, Google sign-in, email.
+See [`docs/HANDOVER.md`](docs/HANDOVER.md) for the checklist of everything that transfers with the brand.
+
+## Database
+
+All schema and seed data are in `supabase/migrations/` and run in file-name order. Add new changes as
+new migration files; never edit one that has already run.
+
+## Content
+
+`content/articles/` has eight ready-to-publish WordPress articles. `content/WORDPRESS-SITE-GUIDE.md`
+has the menu structure and cross-linking plan.
