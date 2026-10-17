@@ -1,0 +1,116 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * Terroir — wine translation guide design system.
+ * Palette: cellar-dark plum, aged claret, brass/gold, warm parchment.
+ * All colors are oklch tokens. Never hardcode colors in components.
+ */
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-gold: var(--gold);
+  --color-gold-foreground: var(--gold-foreground);
+  --font-display: "Cormorant Garamond", ui-serif, Georgia, serif;
+  --font-sans: "Karla", ui-sans-serif, system-ui, sans-serif;
+  --shadow-cellar: 0 24px 60px -24px oklch(0 0 0 / 0.75);
+  --shadow-glow: 0 0 0 1px var(--border), 0 18px 50px -28px var(--primary);
+}
+
+:root {
+  --radius: 0.5rem;
+  --background: oklch(0.17 0.032 340);
+  --foreground: oklch(0.95 0.017 85);
+  --card: oklch(0.22 0.038 345);
+  --card-foreground: oklch(0.95 0.017 85);
+  --popover: oklch(0.21 0.036 345);
+  --popover-foreground: oklch(0.95 0.017 85);
+  --primary: oklch(0.47 0.165 14);
+  --primary-foreground: oklch(0.97 0.015 85);
+  --secondary: oklch(0.27 0.04 345);
+  --secondary-foreground: oklch(0.93 0.02 85);
+  --muted: oklch(0.26 0.032 345);
+  --muted-foreground: oklch(0.73 0.028 70);
+  --accent: oklch(0.32 0.05 350);
+  --accent-foreground: oklch(0.95 0.017 85);
+  --destructive: oklch(0.58 0.2 25);
+  --destructive-foreground: oklch(0.97 0.01 85);
+  --border: oklch(0.33 0.04 345);
+  --input: oklch(0.3 0.038 345);
+  --ring: oklch(0.75 0.11 82);
+  --gold: oklch(0.79 0.115 82);
+  --gold-foreground: oklch(0.2 0.035 345);
+}
+
+.dark {
+  --background: oklch(0.17 0.032 340);
+  --foreground: oklch(0.95 0.017 85);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    background-image:
+      radial-gradient(60rem 40rem at 80% -10%, oklch(0.47 0.165 14 / 0.28), transparent 65%),
+      radial-gradient(50rem 40rem at -10% 20%, oklch(0.4 0.08 300 / 0.22), transparent 60%);
+    background-attachment: fixed;
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-display);
+    font-weight: 500;
+    letter-spacing: -0.01em;
+  }
+}
+
+@utility text-display {
+  font-family: var(--font-display);
+  font-weight: 500;
+  letter-spacing: -0.015em;
+}
+
+@utility rule-gold {
+  background-image: linear-gradient(90deg, transparent, var(--gold), transparent);
+}
+
+@utility surface-card {
+  background-color: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-cellar);
+}

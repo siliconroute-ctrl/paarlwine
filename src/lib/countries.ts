@@ -1,0 +1,28 @@
+export const COUNTRIES = [
+  "United States",
+  "United Kingdom",
+  "Canada",
+  "Ireland",
+  "Australia",
+  "New Zealand",
+  "South Africa",
+  "Germany",
+  "France",
+  "Italy",
+  "Spain",
+  "Portugal",
+  "Netherlands",
+  "Sweden",
+  "Norway",
+  "Denmark",
+  "Japan",
+  "Singapore",
+  "Brazil",
+  "Argentina",
+  "Chile",
+  "Mexico",
+  "India",
+  "United Arab Emirates",
+] as const;
+
+export const HOME_COUNTRY_KEY = "terroir:home-country";
