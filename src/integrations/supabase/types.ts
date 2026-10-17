@@ -71,6 +71,24 @@ export type Database = {
         }
         Relationships: []
       }
+      scan_log: {
+        Row: {
+          created_at: string
+          id: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          user_id?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       scans: {
         Row: {
           color: string | null

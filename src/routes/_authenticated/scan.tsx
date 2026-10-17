@@ -276,6 +276,22 @@ function ScanPage() {
               )}
             </div>
 
+            {result.paarl_pick && (
+              <div className="mt-5 rounded-lg border border-gold/40 p-4">
+                <p className="text-xs uppercase tracking-[0.2em] text-gold">From Paarl</p>
+                <p className="mt-1 text-base font-medium">
+                  {result.paarl_pick.estate} — {result.paarl_pick.style}
+                </p>
+                <p className="mt-1 text-sm text-muted-foreground">{result.paarl_pick.why}</p>
+                <Link
+                  to="/estates"
+                  className="mt-2 inline-block text-sm text-gold underline-offset-4 hover:underline"
+                >
+                  See Paarl estates
+                </Link>
+              </div>
+            )}
+
             {result.food_pairings.length > 0 && (
               <p className="mt-5 text-sm text-muted-foreground">
                 Pairs with {result.food_pairings.join(", ").toLowerCase()}.
