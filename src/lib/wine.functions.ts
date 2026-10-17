@@ -90,9 +90,7 @@ export const getProfile = createServerFn({ method: "GET" })
       .select("id, display_name, home_country")
       .eq("id", context.userId)
       .maybeSingle();
-    return (
-      data ?? { id: context.userId, display_name: null, home_country: "United States" }
-    );
+    return data ?? { id: context.userId, display_name: null, home_country: "United States" };
   });
 
 export const updateProfile = createServerFn({ method: "POST" })

@@ -22,12 +22,14 @@ export const Route = createFileRoute("/estates")({
       { property: "og:image", content: "https://app.paarlwine.com/og-guide.jpg" },
       { property: "og:image:width", content: "1200" },
       { property: "og:image:height", content: "630" },
-      { property: "og:image:alt", content: "Wine bottles from different countries laid out with grapes and vine leaves" },
+      {
+        property: "og:image:alt",
+        content: "Wine bottles from different countries laid out with grapes and vine leaves",
+      },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:title", content: title },
       { name: "twitter:description", content: description },
       { name: "twitter:image", content: "https://app.paarlwine.com/og-guide.jpg" },
-
     ],
     links: [{ rel: "canonical", href: "https://app.paarlwine.com/estates" }],
     scripts: [

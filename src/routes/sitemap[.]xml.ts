@@ -3,7 +3,6 @@ import type {} from "@tanstack/react-start";
 
 const BASE_URL = "https://app.paarlwine.com";
 
-
 interface SitemapEntry {
   path: string;
   lastmod?: string;
@@ -24,7 +23,6 @@ export const Route = createFileRoute("/sitemap.xml")({
           { path: "/contact", changefreq: "yearly", priority: "0.4" },
           { path: "/auth", changefreq: "yearly", priority: "0.3" },
         ];
-
 
         const urls = entries.map((e) =>
           [

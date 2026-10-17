@@ -25,24 +25,28 @@ export const Route = createFileRoute("/")({
       { property: "og:title", content: "Terroir — Translate Any Wine Label While Travelling" },
       {
         property: "og:description",
-        content: "Photograph a foreign wine label and Terroir tells you the grape, the style and which bottles back home taste closest.",
+        content:
+          "Photograph a foreign wine label and Terroir tells you the grape, the style and which bottles back home taste closest.",
       },
       { property: "og:type", content: "website" },
       { property: "og:url", content: "https://app.paarlwine.com/" },
       { property: "og:image", content: "https://app.paarlwine.com/og-default.jpg" },
       { property: "og:image:width", content: "1200" },
       { property: "og:image:height", content: "630" },
-      { property: "og:image:alt", content: "A phone photographing a wine label in a candle-lit Paarl cellar" },
+      {
+        property: "og:image:alt",
+        content: "A phone photographing a wine label in a candle-lit Paarl cellar",
+      },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:title", content: "Terroir — Translate Any Wine Label While Travelling" },
       {
         name: "twitter:description",
-        content: "Photograph a foreign wine label and Terroir tells you the grape, the style and which bottles back home taste closest.",
+        content:
+          "Photograph a foreign wine label and Terroir tells you the grape, the style and which bottles back home taste closest.",
       },
       { name: "twitter:image", content: "https://app.paarlwine.com/og-default.jpg" },
     ],
     links: [{ rel: "canonical", href: "https://app.paarlwine.com/" }],
-
   }),
 
   loader: ({ context }) => context.queryClient.ensureQueryData(winesQuery),
@@ -127,8 +131,8 @@ function Index() {
             <div>
               <h2 className="text-3xl">In the guide</h2>
               <p className="mt-1 text-sm text-muted-foreground">
-                {wines.length} classic wines across {countries} countries, each with its
-                home-shelf equivalents.
+                {wines.length} classic wines across {countries} countries, each with its home-shelf
+                equivalents.
               </p>
             </div>
             <Link to="/guide" className="shrink-0 text-sm text-gold hover:underline">
@@ -156,7 +160,6 @@ function Index() {
       </main>
 
       <SiteFooter />
-
     </div>
   );
 }

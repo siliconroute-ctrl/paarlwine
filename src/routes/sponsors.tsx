@@ -20,12 +20,14 @@ export const Route = createFileRoute("/sponsors")({
       { property: "og:image", content: "https://app.paarlwine.com/og-guide.jpg" },
       { property: "og:image:width", content: "1200" },
       { property: "og:image:height", content: "630" },
-      { property: "og:image:alt", content: "Wine bottles from different countries laid out with grapes and vine leaves" },
+      {
+        property: "og:image:alt",
+        content: "Wine bottles from different countries laid out with grapes and vine leaves",
+      },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:title", content: title },
       { name: "twitter:description", content: description },
       { name: "twitter:image", content: "https://app.paarlwine.com/og-guide.jpg" },
-
     ],
     links: [{ rel: "canonical", href: "https://app.paarlwine.com/sponsors" }],
   }),
@@ -56,7 +58,11 @@ const packages = [
     name: "Sponsored article",
     price: "Per piece",
     body: "A written feature on paarlwine.com about your estate, harvest, new release or events — shared from the app and the directory.",
-    points: ["Original written feature", "Photography included", "Permanent link from your listing"],
+    points: [
+      "Original written feature",
+      "Photography included",
+      "Permanent link from your listing",
+    ],
   },
 ];
 
@@ -68,9 +74,9 @@ function Sponsors() {
         <p className="text-xs uppercase tracking-[0.3em] text-gold">Partner with us</p>
         <h1 className="mt-4 text-4xl md:text-5xl">Reach people deciding what to drink</h1>
         <p className="mt-4 max-w-xl text-sm text-muted-foreground">
-          Paarl Wine is read by two audiences at the same moment of intent: visitors planning a
-          Cape Winelands tasting, and wine drinkers standing in front of a shelf trying to work out
-          what to buy. Both are one click from your estate.
+          Paarl Wine is read by two audiences at the same moment of intent: visitors planning a Cape
+          Winelands tasting, and wine drinkers standing in front of a shelf trying to work out what
+          to buy. Both are one click from your estate.
         </p>
 
         <div className="mt-10 grid gap-4 md:grid-cols-3">
@@ -93,7 +99,10 @@ function Sponsors() {
           {[
             { stat: "Paarl-based", label: "Written from the district, not from a desk abroad" },
             { stat: "Two channels", label: "The article site plus the wine app on this subdomain" },
-            { stat: "Intent traffic", label: "Visitors searching for tastings, grapes and pairings" },
+            {
+              stat: "Intent traffic",
+              label: "Visitors searching for tastings, grapes and pairings",
+            },
           ].map((item) => (
             <div key={item.stat} className="surface-card p-6">
               <p className="text-2xl text-gold">{item.stat}</p>

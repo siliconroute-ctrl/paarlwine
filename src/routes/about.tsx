@@ -20,7 +20,10 @@ export const Route = createFileRoute("/about")({
       { property: "og:image", content: "https://app.paarlwine.com/og-default.jpg" },
       { property: "og:image:width", content: "1200" },
       { property: "og:image:height", content: "630" },
-      { property: "og:image:alt", content: "A phone photographing a wine label in a candle-lit Paarl cellar" },
+      {
+        property: "og:image:alt",
+        content: "A phone photographing a wine label in a candle-lit Paarl cellar",
+      },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:title", content: title },
       { name: "twitter:description", content: description },
@@ -43,7 +46,6 @@ export const Route = createFileRoute("/about")({
           },
         }),
       },
-
     ],
     links: [{ rel: "canonical", href: "https://app.paarlwine.com/about" }],
   }),
@@ -99,8 +101,8 @@ function About() {
           </p>
           <p className="text-sm text-muted-foreground">
             That mix is exactly why the app exists. Visitors arrive knowing Sancerre or Rioja and
-            leave without realising there is a Paarl bottle that scratches the same itch — and
-            South Africans travelling abroad have the same problem in reverse.
+            leave without realising there is a Paarl bottle that scratches the same itch — and South
+            Africans travelling abroad have the same problem in reverse.
           </p>
         </section>
 
@@ -112,17 +114,17 @@ function About() {
             Matches are based on grape, body, sweetness, acidity and oak — not on price or scores.
           </p>
           <p className="text-sm text-muted-foreground">
-            It is a guide, not gospel. Vintages vary, producers vary, and a great winemaker can
-            make a wine that breaks its own regional rules. Use it to narrow the shelf down from
-            fifty bottles to three.
+            It is a guide, not gospel. Vintages vary, producers vary, and a great winemaker can make
+            a wine that breaks its own regional rules. Use it to narrow the shelf down from fifty
+            bottles to three.
           </p>
         </section>
 
         <section className="mt-12 space-y-4">
           <h2 className="text-3xl">Your photos and data</h2>
           <p className="text-sm text-muted-foreground">
-            Label photos are stored privately against your account and are visible only to you.
-            Your saved cellar is yours; you can delete any scan at any time.
+            Label photos are stored privately against your account and are visible only to you. Your
+            saved cellar is yours; you can delete any scan at any time.
           </p>
         </section>
 

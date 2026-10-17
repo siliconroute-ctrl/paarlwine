@@ -21,7 +21,6 @@ import {
 import { COUNTRIES } from "@/lib/countries";
 import { fileToCompressedDataUrl } from "@/lib/image";
 
-
 export const Route = createFileRoute("/_authenticated/scan")({
   head: () => ({
     meta: [
@@ -125,7 +124,6 @@ function ScanPage() {
     if (galleryRef.current) galleryRef.current.value = "";
   }
 
-
   return (
     <div className="min-h-screen">
       <SiteHeader />
@@ -138,10 +136,7 @@ function ScanPage() {
 
         <div className="mt-6 max-w-xs space-y-2">
           <Label htmlFor="home-country">Comparing against</Label>
-          <Select
-            value={homeCountry}
-            onValueChange={(value) => countryMutation.mutate(value)}
-          >
+          <Select value={homeCountry} onValueChange={(value) => countryMutation.mutate(value)}>
             <SelectTrigger id="home-country">
               <SelectValue placeholder="Home country" />
             </SelectTrigger>
@@ -217,7 +212,6 @@ function ScanPage() {
             </div>
           )}
         </div>
-
 
         {analyzeMutation.isPending && (
           <div className="mt-6 flex items-center gap-3 text-sm text-muted-foreground">

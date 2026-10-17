@@ -115,8 +115,8 @@ function AuthPage() {
             <h1 className="text-3xl">Reset your password</h1>
             {sent ? (
               <p className="mt-3 text-sm text-muted-foreground">
-                If that email has an account, a reset link is on its way. Check your inbox (and
-                spam folder) — the link opens a page where you can set a new password.
+                If that email has an account, a reset link is on its way. Check your inbox (and spam
+                folder) — the link opens a page where you can set a new password.
               </p>
             ) : (
               <>
@@ -230,9 +230,7 @@ function AuthPage() {
             className="mt-6 w-full text-center text-sm text-muted-foreground hover:text-foreground"
             onClick={() => setMode(mode === "signin" ? "signup" : "signin")}
           >
-            {mode === "signin"
-              ? "New here? Create an account"
-              : "Already have an account? Sign in"}
+            {mode === "signin" ? "New here? Create an account" : "Already have an account? Sign in"}
           </button>
         </div>
       </div>

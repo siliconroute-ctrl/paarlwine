@@ -33,12 +33,17 @@ export const Route = createFileRoute("/guide")({
       { property: "og:image", content: "https://app.paarlwine.com/og-guide.jpg" },
       { property: "og:image:width", content: "1200" },
       { property: "og:image:height", content: "630" },
-      { property: "og:image:alt", content: "Wine bottles from different countries laid out with grapes and vine leaves" },
+      {
+        property: "og:image:alt",
+        content: "Wine bottles from different countries laid out with grapes and vine leaves",
+      },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:title", content: "Wine Guide — Grapes, Regions and Home Equivalents" },
-      { name: "twitter:description", content: "Look up any wine style and find its equivalent in another country." },
+      {
+        name: "twitter:description",
+        content: "Look up any wine style and find its equivalent in another country.",
+      },
       { name: "twitter:image", content: "https://app.paarlwine.com/og-guide.jpg" },
-
     ],
     links: [{ rel: "canonical", href: "https://app.paarlwine.com/guide" }],
   }),
@@ -69,8 +74,8 @@ function Guide() {
       <main className="mx-auto max-w-5xl px-4 py-12">
         <h1 className="text-4xl md:text-5xl">The guide</h1>
         <p className="mt-2 max-w-xl text-sm text-muted-foreground">
-          Type a wine, a grape or a country — Sancerre, Nebbiolo, Portugal — and see what it is
-          and what drinks like it elsewhere.
+          Type a wine, a grape or a country — Sancerre, Nebbiolo, Portugal — and see what it is and
+          what drinks like it elsewhere.
         </p>
 
         <div className="relative mt-6 max-w-md">
@@ -146,7 +151,5 @@ function Guide() {
       </main>
       <SiteFooter />
     </div>
-
-
   );
 }

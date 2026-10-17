@@ -11,9 +11,7 @@ import { useEffect, type ReactNode } from "react";
 import { Toaster } from "sonner";
 
 import appCss from "../styles.css?url";
-import { reportLovableError } from "../lib/lovable-error-reporting";
 import { supabase } from "@/integrations/supabase/client";
-
 
 function NotFoundComponent() {
   return (
@@ -40,9 +38,6 @@ function NotFoundComponent() {
 function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
   console.error(error);
   const router = useRouter();
-  useEffect(() => {
-    reportLovableError(error, { boundary: "tanstack_root_error_component" });
-  }, [error]);
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
@@ -90,7 +85,8 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { property: "og:title", content: "Terroir — Translate Any Wine Label While Travelling" },
       {
         property: "og:description",
-        content: "Photograph a foreign wine label and Terroir tells you the grape, the style and which bottles back home taste closest.",
+        content:
+          "Photograph a foreign wine label and Terroir tells you the grape, the style and which bottles back home taste closest.",
       },
       { property: "og:type", content: "website" },
       { property: "og:site_name", content: "Terroir — Paarl Wine" },
@@ -123,14 +119,12 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         }),
       },
     ],
-
   }),
   shellComponent: RootShell,
   component: RootComponent,
   notFoundComponent: NotFoundComponent,
   errorComponent: ErrorComponent,
 });
-
 
 function RootShell({ children }: { children: ReactNode }) {
   return (
@@ -167,4 +161,3 @@ function RootComponent() {
     </QueryClientProvider>
   );
 }
-

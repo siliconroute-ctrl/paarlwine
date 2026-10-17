@@ -11,7 +11,6 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
 
-
 const title = "Contact Paarl Wine — Estates, Listings and Enquiries";
 const description =
   "Get in touch with Paarl Wine about estate listings, sponsored features, corrections to the wine guide or anything else.";
@@ -28,12 +27,14 @@ export const Route = createFileRoute("/contact")({
       { property: "og:image", content: "https://app.paarlwine.com/og-default.jpg" },
       { property: "og:image:width", content: "1200" },
       { property: "og:image:height", content: "630" },
-      { property: "og:image:alt", content: "A phone photographing a wine label in a candle-lit Paarl cellar" },
+      {
+        property: "og:image:alt",
+        content: "A phone photographing a wine label in a candle-lit Paarl cellar",
+      },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:title", content: title },
       { name: "twitter:description", content: description },
       { name: "twitter:image", content: "https://app.paarlwine.com/og-default.jpg" },
-
     ],
     links: [{ rel: "canonical", href: "https://app.paarlwine.com/contact" }],
   }),
