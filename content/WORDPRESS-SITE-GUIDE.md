@@ -85,13 +85,8 @@ readers trust the unpaid content more because of it.
 
 ## Connecting the subdomain
 
-1. Publish this project from Lovable.
-2. Project Settings → Domains → Connect domain → enter `app.paarlwine.com`.
-3. At your DNS host, add an **A record** for `app` pointing to `185.158.133.1`,
-   plus the TXT verification record Lovable shows you.
-4. Wait for verification and SSL (usually under an hour, up to 72 hours).
-
-Your WordPress install on the root domain is untouched by any of this.
+The app is hosted on Vercel. Follow `docs/DEPLOY.md`: add `app.paarlwine.com` under the Vercel project's Domains,
+then point the `app` DNS record at the value Vercel shows. Your WordPress install on the root domain is untouched.
 
 ---
 
