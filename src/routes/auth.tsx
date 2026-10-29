@@ -27,6 +27,10 @@ export const Route = createFileRoute("/auth")({
   component: AuthPage,
 });
 
+// Google sign-in is hidden until it is switched on in Supabase (Authentication > Providers > Google)
+// and VITE_GOOGLE_SIGNIN=true is set in the hosting environment.
+const GOOGLE_SIGNIN_ENABLED = import.meta.env.VITE_GOOGLE_SIGNIN === "true";
+
 function AuthPage() {
   const [mode, setMode] = useState<"signin" | "signup" | "forgot">("signin");
   const [email, setEmail] = useState("");
@@ -215,15 +219,19 @@ function AuthPage() {
             </Button>
           </form>
 
-          <div className="my-5 flex items-center gap-3 text-xs text-muted-foreground">
-            <span className="h-px flex-1 bg-border" />
-            or
-            <span className="h-px flex-1 bg-border" />
-          </div>
+          {GOOGLE_SIGNIN_ENABLED && (
+            <>
+              <div className="my-5 flex items-center gap-3 text-xs text-muted-foreground">
+                <span className="h-px flex-1 bg-border" />
+                or
+                <span className="h-px flex-1 bg-border" />
+              </div>
 
-          <Button variant="cellar" className="w-full" onClick={handleGoogle} disabled={busy}>
-            Continue with Google
-          </Button>
+              <Button variant="cellar" className="w-full" onClick={handleGoogle} disabled={busy}>
+                Continue with Google
+              </Button>
+            </>
+          )}
 
           <button
             type="button"
