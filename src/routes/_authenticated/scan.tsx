@@ -48,6 +48,22 @@ function ScanPage() {
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [result, setResult] = useState<LabelAnalysis | null>(null);
   const [saved, setSaved] = useState(false);
+  const [visiting, setVisiting] = useState<string>(() => {
+    try {
+      return localStorage.getItem("terroir.visiting") ?? "";
+    } catch {
+      return "";
+    }
+  });
+
+  function chooseVisiting(value: string) {
+    setVisiting(value);
+    try {
+      localStorage.setItem("terroir.visiting", value);
+    } catch {
+      /* ignore */
+    }
+  }
 
   const queryClient = useQueryClient();
   const fetchProfile = useServerFn(getProfile);
@@ -68,7 +84,7 @@ function ScanPage() {
 
   const analyzeMutation = useMutation({
     mutationFn: async (dataUrl: string) =>
-      runAnalyze({ data: { imageDataUrl: dataUrl, homeCountry } }),
+      runAnalyze({ data: { imageDataUrl: dataUrl, homeCountry, visitingCountry: visiting } }),
     onSuccess: (data) => {
       setResult(data);
       setSaved(false);
@@ -130,24 +146,43 @@ function ScanPage() {
       <main className="mx-auto max-w-3xl px-4 py-10">
         <h1 className="text-4xl md:text-5xl">Scan a label</h1>
         <p className="mt-2 text-sm text-muted-foreground">
-          Point your camera at the front label. Terroir reads it and compares it to wines sold in
-          your home country.
+          Choose your home country and the country you are visiting, then photograph the front
+          label. Terroir reads it and finds the closest wines sold back home.
         </p>
 
-        <div className="mt-6 max-w-xs space-y-2">
-          <Label htmlFor="home-country">Comparing against</Label>
-          <Select value={homeCountry} onValueChange={(value) => countryMutation.mutate(value)}>
-            <SelectTrigger id="home-country">
-              <SelectValue placeholder="Home country" />
-            </SelectTrigger>
-            <SelectContent>
-              {COUNTRIES.map((c) => (
-                <SelectItem key={c} value={c}>
-                  {c}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
+        <div className="mt-6 grid gap-4 sm:grid-cols-2">
+          <div className="space-y-2">
+            <Label htmlFor="home-country">1. My home country</Label>
+            <Select value={homeCountry} onValueChange={(value) => countryMutation.mutate(value)}>
+              <SelectTrigger id="home-country">
+                <SelectValue placeholder="Where do you live?" />
+              </SelectTrigger>
+              <SelectContent>
+                {COUNTRIES.map((c) => (
+                  <SelectItem key={c} value={c}>
+                    {c}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+            <p className="text-xs text-muted-foreground">We find matching wines sold here.</p>
+          </div>
+          <div className="space-y-2">
+            <Label htmlFor="visiting-country">2. Country I am visiting</Label>
+            <Select value={visiting} onValueChange={chooseVisiting}>
+              <SelectTrigger id="visiting-country">
+                <SelectValue placeholder="Where are you now?" />
+              </SelectTrigger>
+              <SelectContent>
+                {COUNTRIES.map((c) => (
+                  <SelectItem key={c} value={c}>
+                    {c}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+            <p className="text-xs text-muted-foreground">Where you are scanning the bottle.</p>
+          </div>
         </div>
 
         <input

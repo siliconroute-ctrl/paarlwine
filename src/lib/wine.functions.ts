@@ -148,7 +148,7 @@ const MAX_IMAGE_CHARS = 7_000_000;
 
 export const analyzeLabel = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((input: { imageDataUrl: string; homeCountry: string }) => {
+  .inputValidator((input: { imageDataUrl: string; homeCountry: string; visitingCountry?: string }) => {
     if (!input.imageDataUrl || !IMAGE_DATA_URL.test(input.imageDataUrl)) {
       throw new Error("A photo of the wine label is required.");
     }
@@ -158,6 +158,7 @@ export const analyzeLabel = createServerFn({ method: "POST" })
     return {
       imageDataUrl: input.imageDataUrl,
       homeCountry: String(input.homeCountry || "United States").slice(0, 80),
+      visitingCountry: String(input.visitingCountry || "").slice(0, 80),
     };
   })
   .handler(async ({ data, context }): Promise<LabelAnalysis> => {
@@ -201,7 +202,11 @@ export const analyzeLabel = createServerFn({ method: "POST" })
               },
               {
                 type: "text",
-                text: `The traveller's home country is ${data.homeCountry}. Identify this wine label and give home-country equivalents.`,
+                text: `The traveller's home country is ${data.homeCountry}.${
+                  data.visitingCountry
+                    ? ` They are currently visiting ${data.visitingCountry} and photographed this bottle there, so read the label with that country's wine labelling and local wines in mind.`
+                    : ""
+                } Identify this wine label and give equivalents commonly sold in ${data.homeCountry}.`,
               },
             ],
           },
